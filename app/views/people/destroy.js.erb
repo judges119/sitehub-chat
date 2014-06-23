@@ -1,0 +1,6 @@
+<% broadcast "/people/leave" do %>
+$("#users_online").find('tr:contains("<%= @user.email %>")').remove();
+<% end %>
+<% @expired_users.each do |user| %>
+  $("#users_online").find('tr:contains("<%= user.email %>")').remove();
+<% end %>

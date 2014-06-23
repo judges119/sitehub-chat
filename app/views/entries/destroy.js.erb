@@ -1,0 +1,3 @@
+<% broadcast "/entries/delete" do %>
+$('tr:contains("<%= escape_javascript @entry.content %>")').remove();
+<% end %>

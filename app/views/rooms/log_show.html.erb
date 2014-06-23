@@ -1,0 +1,23 @@
+<h1>Logs for <%= @room.title %> starting at <%= @entry.created_at.to_s %></h1>
+
+<table>
+  <tr>
+    <td width="20%"><strong>User</strong></td>
+    <td width="50%"><strong>Message</strong></td>
+    <td width="20%"><strong>Timestamp</strong></td>
+    <td width="10%"></td>
+  </tr>
+  
+  <% for i in (@room.entries.where("id < ?", @entry.id).count - 1)..(@room.entries.where("id < ?", @entry.id).count + 49) %>
+    <tr>
+      <td><%= @room.entries.limit(1).offset(i).take.user.email %></td>
+      <td><%= @room.entries.limit(1).offset(i).take.content %></td>
+      <td data-time-created="<%= @room.entries.limit(1).offset(i).take.created_at %>"></td>
+      <td>
+        <% if current_user.try(:admin?) %>
+          <%= link_to "Delete", @room.entries.limit(1).offset(i).take, remote: true, method: :delete, data: { confirm: "Are you sure?" } %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,5 @@
+<h1>Logs for <%= @room.title %></h1>
+
+<% for i in 0..(@room.entries.count / 50 - 1) %>
+  <p><%= link_to "To: " + @room.entries.limit(50).offset(i * 50).first.created_at.to_s, '/rooms/' + @room.id.to_s + '/logs/' + @room.entries.limit(50).offset(i * 50).first.id.to_s %></p>
+<% end %>

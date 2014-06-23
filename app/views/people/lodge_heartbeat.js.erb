@@ -1,0 +1,3 @@
+<% @expired_users.each do |user| %>
+  $("#users_online").find('tr:contains("<%= user.email %>")').remove();
+<% end %>

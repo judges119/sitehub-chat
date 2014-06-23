@@ -1,0 +1,50 @@
+<p>
+  <strong>Room:</strong>
+  <%= @room.title %>
+</p>
+
+<table id="chat" width="100%">
+  <tr>
+    <td width="20%"><strong>User</strong></td>
+    <td width="50%"><strong>Message</strong></td>
+    <td width="20%"><strong>Timestamp</strong></td>
+    <td width="10%"></td>
+  <tr>
+  
+  <% for entry in @room.entries.last(20) %>
+    <tr>
+      <td><%= entry.user.email %></td>
+      <td><%= entry.content %></td>
+      <td data-time-created="<%= entry.created_at %>"></td>
+      <td>
+        <% if current_user.try(:admin?) %>
+          <%= link_to "Delete", entry, remote: true, method: :delete, data: { confirm: "Are you sure?" } %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<table id="chat" width="100%">
+  <tr>
+    <td width="20%"><strong>User</strong></td>
+    <td width="50%"><strong>Message</strong></td>
+    <td width="20%"><strong>Timestamp</strong></td>
+    <td width="10%"></td>
+  <tr>
+</table>
+
+<table id="users_online" width="100%">
+  <tr>
+    <td><strong>User</strong</td>
+  </tr>
+</table>
+
+<% if current_user %>
+  <%= render 'entries/form' %>
+<% end %>
+
+<p><%= link_to 'Logs', logs_path(@room) %></p>
+<% if current_user.try(:admin?) %>
+  <p><%= link_to 'Edit', edit_room_path(@room) %></p>
+<% end %>
+<p><%= link_to 'Back', rooms_path %></p>

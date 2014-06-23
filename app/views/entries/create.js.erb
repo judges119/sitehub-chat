@@ -1,0 +1,7 @@
+<% broadcast "/entries/new" do %>
+$("#chat").append('<tr><td><%= @entry.user.email %></td><td><%= escape_javascript @entry.content %></td><td>' + user_date("<%= @entry.updated_at %>") + '</td><td><% if current_user.try(:admin?) %><%= link_to "Delete", @entry, remote: true, method: :delete, data: { confirm: "Are you sure?" } %><% end %></td></tr>');
+if ($("#chat tr").length > 21) {
+  $("#chat tr")[2].remove();
+}
+<% end %>
+$("#new_entry")[0].reset();
